@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
-import asyncio
 
 load_dotenv()
 
@@ -11,7 +10,6 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
     raise RuntimeError("BOT_TOKEN is not set")
 
-application = ApplicationBuilder().token(BOT_TOKEN).build()
 # --- BOT SETTINGS ---
 
 EVENT_LINK = "https://channel0.bigwin959.com/register.html"
@@ -72,16 +70,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup=reply_markup,
             parse_mode="HTML"
         )
-
-# --- REMINDER (Optional) ---
-async def reminder_job(context: ContextTypes.DEFAULT_TYPE):
-    chat_id = context.job.chat_id
-    await context.bot.send_message(
-        chat_id,
-        "⏰ Don’t miss your 150% Bonus! Offer ends soon — join the fun at "
-        f"{BOT_HANDLE} 🎰",
-        parse_mode="HTML"
-    )
 
 # --- MAIN FUNCTION ---
 def main():
